@@ -56,7 +56,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="createBoard"
+        name="create-board"
         options={{
           title: t('tabCreateBoard'),
           tabBarIcon: ({ color }) => <TabBarIcon name="pencil" color={color} />,
