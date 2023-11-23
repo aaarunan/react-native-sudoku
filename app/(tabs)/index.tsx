@@ -10,6 +10,7 @@ import { checkIfStorageIsEmptyAndCreateBoards, useStoredBoards } from "../../hoo
 import { copyBoard, mapToSudokuBoard } from "../../hooks/sudoku/sudoku";
 import useSudoku from "../../hooks/sudoku/useSudoku";
 import SudokuTopBar from "../../components/SudokuTopBar";
+import SudokuBottomBar from "../../components/SudokuBottomBar";
 
 export default function TabOneScreen() {
 
@@ -45,10 +46,8 @@ export default function TabOneScreen() {
         onCellClick={sudoku.changeSelectedCell}
       ></SudokuGrid>
       <InputControls onClick={sudoku.setNewValueOnSelectedCell}
-      onMark={sudoku.markCell}
-      onClear={() => {sudoku.setNewValueOnSelectedCell(0)}}
-      onSolve={() => {}}
       ></InputControls>
+      <SudokuBottomBar onClear={ () => sudoku.setNewValueOnSelectedCell(0) } onMark={sudoku.markCell} ></SudokuBottomBar>
     </View>
   );
 }
