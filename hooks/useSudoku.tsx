@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Cell, StoredBoard, SudokuBoard } from "../types/board";
-import exampleBoards from "../assets/boards";
+import exampleBoards from "../constants/exampleBoards";
 import { isValidSudoku, solveSudoku } from "./useSudokuSolver";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
