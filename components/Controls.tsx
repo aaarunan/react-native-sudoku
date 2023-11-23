@@ -32,15 +32,6 @@ export default function InputControls({
       const rowCells = [];
       for (let col = 0; col < gridSize; col++) {
         const num = gridSize ** 2 - (row * gridSize + col);
-        rowCells.push(
-          <TouchableOpacity
-            key={`cell-${row}-${col}`}
-            onPress={() => onClick(num)}
-            style={styles.gridCell}
-          >
-            <Text>{num}</Text>
-          </TouchableOpacity>
-        );
       }
       htmlGrid.push(
         <View key={`row-${row}`} style={styles.gridRow}>
@@ -51,25 +42,49 @@ export default function InputControls({
     return htmlGrid;
   }
 
-  const controls = generateSudokuHTMLGrid();
+  const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <>
-      <View style={styles.gridContainer}>{controls}</View>
-          <Button text={t('solve')} onPress={() => {
-            if (onSolve) onSolve();
-          }} />
-          <Button text={t('clear')} onPress={() => {
-            if (onClear) onClear();
-          }} />
-          <Button text={t('mark')} onPress={() => {
-            if (onMark) onMark();
-          }} />
+      <View style={styles.container}>
+        {nums.map((num) => {
+          return (
+            <TouchableOpacity
+              key={num}
+              onPress={() => onClick(num)}
+              style={styles.cell}
+            >
+              <Text>{num}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <Button
+        text={t("solve")}
+        onPress={() => {
+          if (onSolve) onSolve();
+        }}
+      />
+      <Button
+        text={t("clear")}
+        onPress={() => {
+          if (onClear) onClear();
+        }}
+      />
+      <Button
+        text={t("mark")}
+        onPress={() => {
+          if (onMark) onMark();
+        }}
+      />
       {creatorMode && (
         <>
-          <Button text={t('create')} onPress={() => {
-            if (onCreate) onCreate();
-          }} />
+          <Button
+            text={t("create")}
+            onPress={() => {
+              if (onCreate) onCreate();
+            }}
+          />      
         </>
       )}
     </>
@@ -77,21 +92,16 @@ export default function InputControls({
 }
 
 const styles = StyleSheet.create({
-  gridContainer: {
-    display: "flex",
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cell: {
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "column",
-    height: 100,
-    width: 100,
-  },
-  gridRow: {
-    flexDirection: "row",
-  },
-  gridCell: {
     width: 30,
     height: 30,
-    borderWidth: 1,
-    borderColor: "gray",
+    border: "1px solid black",
   },
 });

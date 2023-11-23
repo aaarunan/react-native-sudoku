@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "../components/Themed";
-import styles from "../assets/styles/grid";
+import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Cell from "../types/Cell";
 import { SudokuBoard } from "../types/board";
@@ -67,3 +67,27 @@ export default function SudokuGrid(props: props) {
 
   return <View style={styles.gridContainer}>{htmlGrid}</View>;
 }
+
+const styles = StyleSheet.create({
+  gridContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  gridRow: {
+    flexDirection: "row",
+  },
+  gridCell: {
+    width: 30,
+    height: 30,
+    borderWidth: 1,
+    borderColor: "gray",
+  },
+  selectedCell: {
+    backgroundColor: "red",
+  },
+  markedCell: {
+    backgroundColor: "green",
+  }
+});
