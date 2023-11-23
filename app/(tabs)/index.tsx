@@ -5,128 +5,47 @@ import SudokuGrid from "../../components/SudokuGrid";
 import InputControls from "../../components/Controls";
 import { useEffect, useState } from "react";
 import { difficulties } from "../../types/Difficulty";
-import { checkIfStorageIsEmptyAndCreateBoards, copyBoard, mapToSudokuBoard, useStoredBoards } from "../../hooks/useSudoku";
 import { StoredBoard, SudokuBoard } from "../../types/board";
+import { checkIfStorageIsEmptyAndCreateBoards, useStoredBoards } from "../../hooks/sudoku/useStoredBoards";
+import { copyBoard, mapToSudokuBoard } from "../../hooks/sudoku/sudoku";
+import useSudoku from "../../hooks/sudoku/useSudoku";
 
 export default function TabOneScreen() {
 
   checkIfStorageIsEmptyAndCreateBoards();
 
+  const [board, setBoard] = useState<StoredBoard>();
+
   const [difficulty, setDifficulty] = useState<string>(difficulties.EASY);
 
+  const [boards, createNewBoards] = useStoredBoards(difficulty);
 
-  const [boards, _] = useStoredBoards(difficulty);
-  const [board, setBoard] = useState<SudokuBoard>();
-  const [solved, setSolved] = useState<number[][]>();
-  const [invalidCells, setInvalidCells] = useState<number>(-1);
+  function onFinish() {
+    alert("finished");
+  }
 
-  useEffect(() => {
-    const invalidCells = countInvalidCells();
-    console.log(invalidCells);
-    setInvalidCells(invalidCells);
-  }, [board]);
-
-  useEffect(() => {
-    if (invalidCells === 0) {
-      alert("You won!");
-    }
-  }, [invalidCells]);
+  const sudoku = useSudoku(board, onFinish);
 
   useEffect(() => {
     if  (boards.length === 0) {
       return;
     }
-    setRandomBoardFromStorage();
-  }, [boards]);
-
-  const [selectedCell, setSelectedCell] = useState<[number, number]>([-1, -1]);
-
-  function cellIsSolved(row: number, col: number) {
-    if (!board || !solved) {
-      return false;
-    }
-    const cell = board[row][col];
-    const solvedCell = solved[row][col];
-
-    return cell.value === solvedCell;
-  }
-
-  function setRandomBoardFromStorage() {
     const storedBoard: StoredBoard = boards[Math.floor(Math.random() * boards.length)];
-    const board = mapToSudokuBoard(storedBoard.board)
-    console.log(board)
-    setBoard(board);
-    setSolved(storedBoard.solvedBoard);
-  }
+    setBoard(storedBoard);
 
-  function onHandleMark() {
-    if (!board) return;
-    if (selectedCell[0] === -1) return;
-
-    const newGrid = board;
-    newGrid[selectedCell[0]][selectedCell[1]].isMarked = !newGrid[selectedCell[0]][selectedCell[1]].isMarked;
-    setBoard(newGrid);
-
-    setSelectedCell([-1, -1]);
-  }
-
-  function handleCellClick(row: number, col: number) {
-    if (cellIsSolved(row, col) || !board) {
-      return;
-    }
-
-    setSelectedCell([row, col]);
-  }
-
-  function countInvalidCells() {
-    if (!board) return -1;
-    let count = 0;
-    for (let row = 0; row < 9; row++) {
-      for (let col = 0; col < 9; col++) {
-        if (!cellIsSolved(row, col)) {
-          count++;
-        }
-      }
-    }
-    return count;
-  }
-
-  function handleControlsClick(num: number) {
-    if (selectedCell[0] === -1) return;
-
-    if (!board) return;
-
-    const newGrid = board;
-    newGrid[selectedCell[0]][selectedCell[1]].value = num;
-    setBoard(newGrid);
-    if (cellIsSolved(selectedCell[0], selectedCell[1])) {
-      setInvalidCells(invalidCells - 1);
-    }
-
-    setSelectedCell([-1, -1]);
-  }
-
-  function handleClearCell() {
-    if (!board) return;
-    if (selectedCell[0] === -1) return;
-    const newGrid = copyBoard(board)
-    newGrid[selectedCell[0]][selectedCell[1]].value = 0;
-    setBoard(newGrid);
-
-    setSelectedCell([-1, -1]);
-  }
+  }, [boards]);
 
   return (
     <View style={styles.container}>
       <SudokuGrid
-        grid={board}
-        selectedCell={selectedCell}
-        onCellClick={handleCellClick}
+        grid={sudoku.board}
+        selectedCell={sudoku.selectedCell}
+        onCellClick={sudoku.changeSelectedCell}
       ></SudokuGrid>
-      <InputControls onClick={handleControlsClick}
+      <InputControls onClick={sudoku.setNewValueOnSelectedCell}
       difficulty={difficulty}
-      onMark={onHandleMark}
-      onClear={handleClearCell}
+      onMark={sudoku.markCell}
+      onClear={() => {sudoku.setNewValueOnSelectedCell(0)}}
       onSolve={() => {}}
       onPickDifficulty={setDifficulty}
       ></InputControls>

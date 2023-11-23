@@ -4,67 +4,62 @@ import { View } from "../../components/Themed";
 import SudokuGrid from "../../components/SudokuGrid";
 import InputControls from "../../components/Controls";
 import { useState } from "react";
-import { copyBoard, createEmptyBoard, useStoredBoards } from "../../hooks/useSudoku";
 import { difficulties } from "../../types/Difficulty";
-import { SudokuBoard } from "../../types/board";
+import { StoredBoard, SudokuBoard } from "../../types/board";
+import { useStoredBoards } from "../../hooks/sudoku/useStoredBoards";
+import { copyBoard, createEmptyBoard, createEmptyNumberBoard } from "../../hooks/sudoku/sudoku";
+import useSudoku from "../../hooks/sudoku/useSudoku";
 
 export default function TabTwoScreen() {
-  const [grid, setGrid] = useState<SudokuBoard>(createEmptyBoard());
-  const [selectedCell, setSelectedCell] = useState<[number, number]>([-1, -1]);
+  const [board] = useState<StoredBoard>({
+    board: createEmptyNumberBoard(),
+    solvedBoard: createEmptyNumberBoard(-1),
+    difficulty: difficulties.EASY,
+  } as StoredBoard);
 
-  const [boards, createNewBoard] =  useStoredBoards();
+  const sudoku = useSudoku(board);
+
+  const [_, createNewBoard] =  useStoredBoards();
 
   const [difficulty, setDifficulty] = useState<string>(difficulties.EASY);
 
   function handleOnCreate() {
     console.log(difficulty)
+    if (boardIsEmpty()) {
+      alert("Board is empty");
+      return;
+    }
     try {
-      createNewBoard(grid, difficulty);
+      createNewBoard(sudoku.board, difficulty);
     } catch (e) {
       alert(e);
     }
   }
 
-  function handleControlsClick(num: number) {
-    if (selectedCell[0] === -1) {
-      return;
+  function boardIsEmpty() {
+    if (!sudoku.board) {
+      return true;
     }
-
-    setValueAndClearSelectedCell(num);
-  }
-
-  function setValueAndClearSelectedCell(num: number) {
-    const newGrid = copyBoard(grid);
-
-    newGrid[selectedCell[0]][selectedCell[1]].value = num;
-
-    console.log(newGrid)
-    setGrid(newGrid);
-
-    setSelectedCell([-1, -1]);
-  }
-
-  function handleCellClick(row: number, col: number) {
-    setSelectedCell([row, col]);
-  }
-
-  function handleClearCell() {
-    setValueAndClearSelectedCell(0);
+    return sudoku.board.every((row) => {
+      return row.every((cell) => {
+        return cell.value === 0;
+      });
+    });
   }
 
   return (
     <View style={styles.container}>
       <SudokuGrid
-        grid={grid}
-        selectedCell={selectedCell}
-        onCellClick={handleCellClick}
+        grid={sudoku.board}
+        selectedCell={sudoku.selectedCell}
+        onCellClick={sudoku.changeSelectedCell}
       />
       <InputControls
-        onClick={handleControlsClick}
+        onClick={sudoku.setNewValueOnSelectedCell}
         difficulty={difficulty}
         onPickDifficulty={setDifficulty}
         creatorMode={true}
-        onClear={handleClearCell}
+        onClear={() => sudoku.setNewValueOnSelectedCell(0)}
         onCreate={handleOnCreate}
         onSolve={() => {
           console.log("solve");
