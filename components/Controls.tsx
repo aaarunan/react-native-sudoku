@@ -12,8 +12,6 @@ interface props {
   onSolve: () => void;
   onCreate?: () => void;
   onMark?: () => void;
-  difficulty: Difficulty;
-  onPickDifficulty: (difficulty: Difficulty) => void;
   creatorMode?: boolean;
 }
 export default function InputControls({
@@ -22,8 +20,6 @@ export default function InputControls({
   onClear,
   onCreate,
   onMark,
-  difficulty,
-  onPickDifficulty,
   creatorMode,
 }: props) {
   const gridSize = 3;
@@ -69,18 +65,6 @@ export default function InputControls({
           <Button text={t('mark')} onPress={() => {
             if (onMark) onMark();
           }} />
-          <Picker selectedValue={difficulty} onValueChange={onPickDifficulty} >
-            {
-            Object.values(difficulties).map((difficulty) => {
-              return (
-                <Picker.Item
-                  label={difficulty.toString()}
-                  value={difficulty}
-                  key={difficulty}
-                />
-              );
-            })}
-          </Picker>
       {creatorMode && (
         <>
           <Button text={t('create')} onPress={() => {

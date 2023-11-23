@@ -9,6 +9,7 @@ import { StoredBoard, SudokuBoard } from "../../types/board";
 import { checkIfStorageIsEmptyAndCreateBoards, useStoredBoards } from "../../hooks/sudoku/useStoredBoards";
 import { copyBoard, mapToSudokuBoard } from "../../hooks/sudoku/sudoku";
 import useSudoku from "../../hooks/sudoku/useSudoku";
+import SudokuTopBar from "../../components/SudokuTopBar";
 
 export default function TabOneScreen() {
 
@@ -37,17 +38,16 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+      <SudokuTopBar difficulty={difficulty} onPickDifficulty={setDifficulty}></SudokuTopBar>
       <SudokuGrid
         grid={sudoku.board}
         selectedCell={sudoku.selectedCell}
         onCellClick={sudoku.changeSelectedCell}
       ></SudokuGrid>
       <InputControls onClick={sudoku.setNewValueOnSelectedCell}
-      difficulty={difficulty}
       onMark={sudoku.markCell}
       onClear={() => {sudoku.setNewValueOnSelectedCell(0)}}
       onSolve={() => {}}
-      onPickDifficulty={setDifficulty}
       ></InputControls>
     </View>
   );
