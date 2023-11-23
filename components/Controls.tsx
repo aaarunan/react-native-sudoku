@@ -1,4 +1,5 @@
-import { Button, Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
+import Button from "./Button";
 import { Text, View } from "./Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
@@ -59,27 +60,15 @@ export default function InputControls({
   return (
     <>
       <View style={styles.gridContainer}>{controls}</View>
-          <Pressable
-            onPress={() => {
-              if (onSolve) onSolve();
-            }}
-          >
-            <Text>{t('solve')}</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              if (onClear) onClear();
-            }}
-          >
-            <Text>{t('clear')}</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              if (onMark) onMark();
-            }}
-          >
-            <Text>{t('mark')}</Text>
-          </Pressable>
+          <Button text={t('solve')} onPress={() => {
+            if (onSolve) onSolve();
+          }} />
+          <Button text={t('clear')} onPress={() => {
+            if (onClear) onClear();
+          }} />
+          <Button text={t('mark')} onPress={() => {
+            if (onMark) onMark();
+          }} />
           <Picker selectedValue={difficulty} onValueChange={onPickDifficulty} >
             {
             Object.values(difficulties).map((difficulty) => {
@@ -94,12 +83,9 @@ export default function InputControls({
           </Picker>
       {creatorMode && (
         <>
-          <Pressable 
-            onPress={() => {
-              if (onCreate) onCreate();
-            }}>
-              <Text>{t('create')}</Text>
-            </Pressable>
+          <Button text={t('create')} onPress={() => {
+            if (onCreate) onCreate();
+          }} />
         </>
       )}
     </>
