@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#DDDDDD",
     padding: "1rem",
-    borderRadius: "0.5rem",
     margin: "0.5rem",
   },
   emphasized: {

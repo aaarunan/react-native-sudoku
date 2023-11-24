@@ -3,7 +3,6 @@ import no from './locales/no';
 
 import I18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import  {getLocales } from 'react-native-localize';
 
 const languages = {
   en: {nativeName: 'English'},
@@ -11,8 +10,8 @@ const languages = {
 }
 
 const i18n = I18n.use(initReactI18next).init({
-  lng: getLocales()[0].languageCode,
-  fallbackLng: 'no',
+  lng: 'en',
+  fallbackLng: 'en',
   resources: {
     en,
     no,
