@@ -13,6 +13,10 @@ export default {
         tabSettings: "Innstillinger",
         doesNotExist: "Denne siden finnes ikke.",
         goBack: "Gå tilbake til hjemmesiden!",
-        notFound: "Oops!"
+        notFound: "Oops!",
+        successBoard: "Brettet ble opprettet!",
+        EASY: "Lett",
+        MEDIUM: "Medium",
+        HARD: "Vanskelig",
     },
 };

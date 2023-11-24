@@ -70,7 +70,7 @@ export function useStoredBoards(difficulty: string | undefined = undefined) {
             try {
                 await AsyncStorage.setItem("boards", JSON.stringify(board));
             } catch (e) {
-                alert("Error saving boards");
+                throw new Error("Error saving boards");
             }
     }
 

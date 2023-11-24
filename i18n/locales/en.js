@@ -13,6 +13,10 @@ export default {
         tabSettings: "Settings",
         doesNotExist: "This screen does not exist.",
         goBack: "Go to home screen!",
-        notFound: "Oops!"
+        notFound: "Oops!",
+        successBoard: "Board created!",
+        EASY: "Easy",
+        MEDIUM: "Medium",
+        HARD: "Hard",
     },
 };

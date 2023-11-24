@@ -2,6 +2,7 @@ import { difficulties } from "../types/Difficulty";
 import Button from "./Button";
 import { StyleSheet } from "react-native";
 import { View } from "./Themed";
+import { useTranslation } from "react-i18next";
 
 interface props {
   difficulty: string;
@@ -9,13 +10,16 @@ interface props {
 }
 
 export default function SudokuTopBar(props: props) {
+
+  const { t } = useTranslation();
+
   return (
     <View style={styles.SudokuTopBar}>
       {Object.values(difficulties).map((difficulty) => {
         return (
           <View style={styles.topBarElement} key={difficulty}>
             <Button
-              text={difficulty}
+              text={t(difficulty)}
               onPress={() => props.onPickDifficulty(difficulty)}
               block
               emphasized={difficulty == props.difficulty}

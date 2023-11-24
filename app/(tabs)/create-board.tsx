@@ -11,6 +11,7 @@ import {createEmptyNumberBoard} from "../../hooks/sudoku/sudoku";
 import useSudoku from "../../hooks/sudoku/useSudoku";
 import SudokuTopBar from "../../components/SudokuTopBar";
 import SudokuBottomBar from "../../components/SudokuBottomBar";
+import { useTranslation } from "react-i18next";
 
 export default function TabTwoScreen() {
     const [board] = useState<StoredBoard>({
@@ -25,6 +26,8 @@ export default function TabTwoScreen() {
 
     const [difficulty, setDifficulty] = useState<string>(difficulties.EASY);
 
+    const {t} = useTranslation();
+
     function handleOnCreate() {
         if (boardIsEmpty()) {
             alert("Board is empty");
@@ -32,6 +35,7 @@ export default function TabTwoScreen() {
         }
         try {
             createNewBoard(sudoku.board, difficulty);
+            alert(t("successBoard"));
         } catch (e) {
             alert(e);
         }
