@@ -7,6 +7,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export function useStoredBoards(difficulty: string | undefined = undefined) {
     const [boards, setBoards] = useState<StoredBoard[]>([]);
 
+    useEffect(() => {
+        checkIfStorageIsEmptyAndCreateBoards();
+    },[])
+
     function createNewBoard(grid: SudokuBoard, difficulty: string) {
 
         const copy = grid.map((row) => {

@@ -6,20 +6,18 @@ import InputControls from "../../components/Controls";
 import {useEffect, useState} from "react";
 import {difficulties} from "../../types/Difficulty";
 import {StoredBoard} from "../../types/board";
-import {checkIfStorageIsEmptyAndCreateBoards, useStoredBoards} from "../../hooks/sudoku/useStoredBoards";
+import {useStoredBoards} from "../../hooks/sudoku/useStoredBoards";
 import useSudoku from "../../hooks/sudoku/useSudoku";
 import SudokuTopBar from "../../components/SudokuTopBar";
 import SudokuBottomBar from "../../components/SudokuBottomBar";
 
 export default function TabOneScreen() {
 
-    checkIfStorageIsEmptyAndCreateBoards();
-
     const [board, setBoard] = useState<StoredBoard>();
 
     const [difficulty, setDifficulty] = useState<string>(difficulties.EASY);
 
-    const [boards, createNewBoards] = useStoredBoards(difficulty);
+    const [boards] = useStoredBoards(difficulty);
 
     function onFinish() {
         alert("finished");

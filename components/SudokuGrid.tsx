@@ -14,12 +14,6 @@ interface props {
 export default function SudokuGrid(props: props) {
   const GRIDSIZE = 9;
 
-  const [htmlGrid, setHTMLGrid] = useState(generateSudokuHTMLGrid());
-
-  useEffect(() => {
-    setHTMLGrid(generateSudokuHTMLGrid());
-  }, [props.grid, props.selectedCell]);
-
   function generateSudokuHTMLGrid(
     sudokuGrid: SudokuBoard | undefined = props.grid,
     gridSize = GRIDSIZE
@@ -57,7 +51,9 @@ export default function SudokuGrid(props: props) {
     return htmlGrid;
   }
 
-  return <View style={styles.gridContainer}>{htmlGrid}</View>;
+  return <View style={styles.gridContainer}>{
+    generateSudokuHTMLGrid(props.grid, GRIDSIZE)
+  }</View>;
 }
 
 const styles = StyleSheet.create({
