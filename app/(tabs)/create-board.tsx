@@ -26,7 +26,6 @@ export default function TabTwoScreen() {
     const [difficulty, setDifficulty] = useState<string>(difficulties.EASY);
 
     function handleOnCreate() {
-        console.log(difficulty)
         if (boardIsEmpty()) {
             alert("Board is empty");
             return;

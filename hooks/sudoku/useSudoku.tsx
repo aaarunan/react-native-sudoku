@@ -15,7 +15,6 @@ export default function useSudoku(prop: StoredBoard | undefined, onFinished?: ()
 
     useEffect(() => {
         const invalidCells = countInvalidCells();
-        console.log(invalidCells);
         setInvalidCells(invalidCells);
     }, [board]);
 

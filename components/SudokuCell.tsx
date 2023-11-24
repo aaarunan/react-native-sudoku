@@ -1,4 +1,4 @@
-import { TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import { Cell } from "../types/board";
 import { Text } from "../components/Themed";
 import { StyleSheet } from "react-native";
@@ -23,12 +23,12 @@ export default function SudokuCell(props: props) {
     return selectedStyles;
   }
   return (
-    <TouchableOpacity
+    <Pressable
       style={getCellClass()}
       onPress={() => props.onCellClick(props.row, props.col)}
     >
       <Text>{props.cell.value}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
