@@ -1,6 +1,3 @@
-
-
-
 const difficulties = {
     EASY: "EASY",
     MEDIUM: "MEDIUM",

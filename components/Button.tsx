@@ -1,6 +1,5 @@
-import { Pressable } from "react-native";
-import { Text } from "./Themed"
-import { StyleSheet } from "react-native";
+import {Pressable, StyleSheet} from "react-native";
+import {Text} from "./Themed"
 
 interface ButtonProps {
     text: string;
@@ -11,39 +10,39 @@ interface ButtonProps {
 
 export default function Button(props: ButtonProps) {
 
-  function getStyle() {
-    if (props.emphasized) {
-      return [styles.button, styles.emphasized];
+    function getStyle() {
+        if (props.emphasized) {
+            return [styles.button, styles.emphasized];
+        }
+        if (props.block) {
+            return [styles.button, styles.block];
+        }
+        return styles.button;
     }
-    if (props.block) {
-      return [styles.button, styles.block];
-    }
-    return styles.button;
-  }
 
     return (
-          <Pressable
+        <Pressable
             onPress={props.onPress}
-            style = {getStyle()}
-          >
+            style={getStyle()}
+        >
             <Text>{props.text}</Text>
-          </Pressable>
+        </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: "1rem",
-    margin: "0.5rem",
-  },
-  emphasized: {
-    backgroundColor: "#AAAAAA",
-  },
-  block : {
-    width: "100%"
-  }
+    button: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: "1rem",
+        margin: "0.5rem",
+    },
+    emphasized: {
+        backgroundColor: "#AAAAAA",
+    },
+    block: {
+        width: "100%"
+    }
 });
