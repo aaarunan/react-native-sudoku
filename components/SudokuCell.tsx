@@ -2,6 +2,7 @@ import { Pressable } from "react-native";
 import { Cell } from "../types/board";
 import { Text } from "../components/Themed";
 import { StyleSheet } from "react-native";
+import Colors from "../constants/Colors";
 
 interface props {
   cell: Cell;
@@ -47,22 +48,24 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1,
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: Colors.dark.primary,
     justifyContent: "center",
     alignItems: "center",
+    minHeight: 20,
+    minWidth: 20,
   },
   selected: {
-    backgroundColor: "red",
+    backgroundColor: "#313e69",
   },
   marked: {
-    backgroundColor: "green",
+    backgroundColor: "#366931",
   },
   borderTop: {
     borderTopWidth: 4,
-    borderColor: "gray",
+    borderColor: Colors.dark.primary,
   },
   borderLeft: {
     borderLeftWidth: 4,
-    borderColor: "gray",
+    borderColor: Colors.dark.primary,
   },
 });

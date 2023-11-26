@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "./Themed";
+import Colors from "../constants/Colors";
 
 interface ButtonProps {
   text: string;
@@ -29,7 +30,7 @@ export default function Button(props: ButtonProps) {
       onPressOut={() => setIsPressed(false)}
       style={getStyle()}
     >
-      <Text>{props.text}</Text>
+      <Text style={styles.color}>{props.text}</Text>
 
     </Pressable>
   );
@@ -40,18 +41,19 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#AAAAAA",
+    backgroundColor: Colors.dark.primary,
     padding: 10,
-    borderColor: "black",
-    borderWidth: 1,
   },
   emphasized: {
-    backgroundColor: "green",
+    backgroundColor: Colors.dark.active,
   },
   block: {
     width: "100%",
   },
   pressed: {
-    backgroundColor: "#CCCCCC", // Change this to the color you want when pressed
+    backgroundColor: Colors.dark.active,
   },
+  color: {
+    color: Colors.dark.text,
+  }
 });

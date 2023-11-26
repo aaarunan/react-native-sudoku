@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "../components/Themed";
+import { Text, View, useThemeColor } from "../components/Themed";
 import { Platform, StyleSheet } from "react-native";
 import { SudokuBoard } from "../types/board";
 import SudokuCell from "./SudokuCell";
+import Colors from "../constants/Colors";
+import { useTheme } from "@react-navigation/native";
 
 interface props {
   grid: SudokuBoard | undefined;
@@ -50,20 +52,17 @@ export default function SudokuGrid(props: props) {
     return htmlGrid;
   }
 
-  return <View style={styles.gridContainer}>{
-    generateSudokuHTMLGrid(props.grid, GRIDSIZE)
-  }</View>;
+  return <View style={[styles.gridContainer]}>{ generateSudokuHTMLGrid(props.grid, GRIDSIZE) }</View>;
 }
 
 const styles = StyleSheet.create({
   gridContainer: {
-    flexDirection: "column",
     width: "100%",
-    aspectRatio: 1,
-    minWidth: Platform.OS === "web" ? 500 : "100%",
+    borderWidth: 4,
   },
   gridRow: {
     flexDirection: "row",
     width: "100%",
+    margin: 0,
   },
 });

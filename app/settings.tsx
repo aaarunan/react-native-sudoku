@@ -23,19 +23,23 @@ export default function ModalScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Button
-        text={t("norwegian")}
-        onPress={() => {
-          setLanguage("no");
-        }}
-      />
-      <Button
-        text={t("english")}
-        onPress={() => {
-          setLanguage("en");
-        }}
-      />
-      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+      <View style={styles.buttons}>
+        <Button
+          text={t("norwegian")}
+          onPress={() => {
+            setLanguage("no");
+          }}
+          block
+        />
+        <Button
+          text={t("english")}
+          onPress={() => {
+            setLanguage("en");
+          }}
+          block
+        />
+        <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+      </View>
     </View>
   );
 }
@@ -55,4 +59,10 @@ const styles = StyleSheet.create({
     height: 1,
     width: "80%",
   },
+  buttons: {
+    width: "100%",
+    maxWidth: 400,
+    padding: 20,
+  }
+
 });
