@@ -16,23 +16,31 @@ export default function SudokuBottomBar(props: props) {
   return (
     <>
       <View style={styles.container}>
-        <Button text={t("clear")} onPress={props.onClear} />
+        <View style={styles.element}>
+          <Button text={t("clear")} onPress={props.onClear} />
+        </View>
         {props.creatorMode ? (
           <>
-            <Button
-              text={t("create")}
-              onPress={() => {
-                if (props.onCreate) props.onCreate();
-              }}
-            />
+            <View style={styles.element }>
+              <Button
+                text={t("create")}
+                block
+                onPress={() => {
+                  if (props.onCreate) props.onCreate();
+                }}
+              />
+            </View>
           </>
         ) : (
-          <Button
-            text={t("mark")}
-            onPress={() => {
-              if (props.onMark) props.onMark();
-            }}
-          />
+          <View style={styles.element}>
+            <Button
+              text={t("mark")}
+              block
+              onPress={() => {
+                if (props.onMark) props.onMark();
+              }}
+            />
+          </View>
         )}
       </View>
     </>
@@ -45,7 +53,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "1.5rem",
     width: "100%",
+  },
+  element: {
+    flexGrow: 1,
+    justifyContent: "center",
   },
 });

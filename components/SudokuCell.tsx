@@ -19,6 +19,12 @@ export default function SudokuCell(props: props) {
     } else if (props.cell.isMarked) {
       selectedStyles.push(styles.marked);
     }
+    if (props.row % 3 === 0 && props.row !== 0) {
+      selectedStyles.push(styles.borderTop);
+    }
+    if (props.col % 3 === 0 && props.col !== 0) {
+      selectedStyles.push(styles.borderLeft);
+    }
 
     return selectedStyles;
   }
@@ -27,22 +33,36 @@ export default function SudokuCell(props: props) {
       style={getCellClass()}
       onPress={() => props.onCellClick(props.row, props.col)}
     >
-      <Text>{props.cell.value}</Text>
+      <Text>{
+        
+      props.cell.value === 0 ? "" : props.cell.value
+      }</Text>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   cell: {
-    width: 30,
-    height: 30,
+    display: "flex",
+    flex: 1,
+    aspectRatio: 1,
     borderWidth: 1,
     borderColor: "gray",
+    justifyContent: "center",
+    alignItems: "center",
   },
   selected: {
     backgroundColor: "red",
   },
   marked: {
     backgroundColor: "green",
+  },
+  borderTop: {
+    borderTopWidth: 4,
+    borderColor: "gray",
+  },
+  borderLeft: {
+    borderLeftWidth: 4,
+    borderColor: "gray",
   },
 });

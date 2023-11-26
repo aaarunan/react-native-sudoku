@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Text, View } from "./Themed";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Pressable } from "react-native";
 
 interface props {
   onClick: (num: number) => void;
@@ -14,13 +14,13 @@ export default function InputControls(props: props) {
       <View style={styles.container}>
         {nums.map((num) => {
           return (
-            <TouchableOpacity
+            <Pressable
               key={num}
               onPress={() => props.onClick(num)}
               style={styles.cell}
             >
               <Text>{num}</Text>
-            </TouchableOpacity>
+            </Pressable>
           );
         })}
       </View>
@@ -30,15 +30,17 @@ export default function InputControls(props: props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    width: "100%",
   },
   cell: {
     justifyContent: "center",
     alignItems: "center",
-    width: 30,
-    height: 30,
-    border: "1px solid black",
+    flex: 1,
+    aspectRatio: 1,
+    borderWidth: 1,
+    borderColor: "gray",
   },
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "../components/Themed";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { SudokuBoard } from "../types/board";
 import SudokuCell from "./SudokuCell";
 
@@ -57,12 +57,13 @@ export default function SudokuGrid(props: props) {
 
 const styles = StyleSheet.create({
   gridContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     flexDirection: "column",
+    width: "100%",
+    aspectRatio: 1,
+    minWidth: Platform.OS === "web" ? 500 : "100%",
   },
   gridRow: {
     flexDirection: "row",
+    width: "100%",
   },
 });
