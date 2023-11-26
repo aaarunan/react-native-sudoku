@@ -8,7 +8,9 @@ export function useStoredBoards(difficulty: string | undefined = undefined) {
     const [boards, setBoards] = useState<StoredBoard[]>([]);
 
     useEffect(() => {
-        checkIfStorageIsEmptyAndCreateBoards();
+         checkIfStorageIsEmptyAndCreateBoards().then((wasEmpty) => {
+            if (wasEmpty) getSavedBoards();
+         })
     },[])
 
     function createNewBoard(grid: SudokuBoard, difficulty: string) {
@@ -82,7 +84,9 @@ export async function checkIfStorageIsEmptyAndCreateBoards() {
         const data = await AsyncStorage.getItem("boards");
         if (data == null) {
             await AsyncStorage.setItem("boards", JSON.stringify(exampleBoards));
+            return true;
         }
+        return false;
     } catch (e) {
         console.log(e);
     }
