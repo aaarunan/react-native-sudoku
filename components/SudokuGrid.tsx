@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     width: "100%",
     borderWidth: 4,
+    borderColor: Colors.dark.primary,
   },
   gridRow: {
     flexDirection: "row",
